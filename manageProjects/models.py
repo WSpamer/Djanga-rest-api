@@ -1,3 +1,4 @@
+from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
 
 # Create your models here.
@@ -21,3 +22,19 @@ class Project(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Measurement(models.Model):
+    blockArea = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockOmtrek = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockLengte = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockBreedte = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockRy = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockDwars = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockHoeke = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    blockHeight = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+
+
+class Section(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project')
+    measurement = models.ForeignKey(Measurement, on_delete=models.CASCADE, related_name='measurement')
